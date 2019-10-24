@@ -1,0 +1,27 @@
+{
+    "name": "owowagency/laravel-has-users",
+    "description": "A trait for Laravel models which have many users.",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dees",
+            "email": "dees@owow.io"
+        },
+        {
+            "name": "Albert",
+            "email": "albert@owow.io"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^5.0|^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OwowAgency\\LaravelHasUsers\\": "src/"
+        }
+    }
+}
