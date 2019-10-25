@@ -3,12 +3,13 @@
 namespace App\Library\Database\Concerns;
 
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-trait HasUsers
+trait HasUsersWithRoles
 {
     /**
      * The belongs to many relationship to users.
@@ -60,26 +61,28 @@ trait HasUsers
      */
     public function syncUsers(array $users): void
     {
+        // Sync the given ids.
+        $ids = Arr::pluck($users, 'id');
+
+        $this->users()->sync($ids);
+
+        // Get all the pivot models.
         $pivotKey = $this->users()->getForeignPivotKeyName();
+
         $pivot = $this->getUsersPivotClass();
 
-        // Get all old modelUsers
-        $modelUsers = $pivot::where($pivotKey, $this->id)->get();
+        $pivots = $pivot::where($pivotKey, $this->id)->get();
 
-        // Remove old modelUsers' roles
-        foreach ($modelUsers as $modelUser) {
-            $modelUser->roles()->detach();
-        }
+        // Loop the pivot models and sync the roles.
+        foreach ($pivots as $pivot) {
+            // Find the user.
+            $user = Arr::first($users, function ($user) use ($pivot) {
+                return $user['id'] === $pivot['user_id'];
+            });
 
-        // Detach old users
-        $this->users()->detach();
+            $roles = Arr::wrap(data_get($user, 'roles', []));
 
-        // Attach new users
-        foreach ($users as $user) {
-            $this->attachUser(
-                data_get($user, 'user_id'),
-                data_get($user, 'role')
-            );
+            $pivot->syncRoles($roles);
         }
     }
 

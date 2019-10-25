@@ -1,2 +1,2 @@
-# laravel-has-users
-A trait for Laravel models which have many users.
+# laravel-has-users-with-roles
+A trait for Laravel models which have many users with roles.
