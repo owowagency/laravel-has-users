@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Library\Database\Concerns;
+namespace OwowAgency\LaravelHasUsersWithRoles;
 
-use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +17,7 @@ trait HasUsersWithRoles
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)
+        return $this->belongsToMany($this->getUserClass())
             ->withTimestamps()
             ->using($this->getUsersPivotClass())
             ->withPivot('id');
@@ -34,8 +33,8 @@ trait HasUsersWithRoles
     public function attachUser($user, $roles = []): void
     {
         // If just the user id is given, find the user model
-        if (! $user instanceof User) {
-            $user = User::findOrFail($user);
+        if (! is_a($user, $this->getUserClass())) {
+            $user = $this->getUserClass()::findOrFail($user);
         }
 
         $pivotKey = $this->users()->getForeignPivotKeyName();
@@ -107,7 +106,7 @@ trait HasUsersWithRoles
      * @param  \App\Models\User  $user
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeHasUser(Builder $query, User $user): Builder
+    public function scopeHasUser(Builder $query, $user): Builder
     {
         return $query->whereHas('users', function ($query) use ($user) {
             $query->where('user_id', $user->id);
@@ -124,8 +123,8 @@ trait HasUsersWithRoles
     public function hasUserWithRole($user, $roles): bool
     {
         // If just the user id is given, find the user model
-        if (! $user instanceof User) {
-            $user = User::findOrFail($user);
+        if (! is_a($user, $this->getUserClass())) {
+            $user = $this->getUserClass()::findOrFail($user);
         }
 
         $pivotKey = $this->users()->getForeignPivotKeyName();
@@ -153,5 +152,15 @@ trait HasUsersWithRoles
     public function getUsersPivotClass(): string
     {
         return Pivot::class;
+    }
+
+    /**
+     * Return the user model class.
+     *
+     * @return string
+     */
+    private function getUserClass(): string
+    {
+        return config('laravel_has_users_with_roles.user_model_path');
     }
 }
