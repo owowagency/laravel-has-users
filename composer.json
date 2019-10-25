@@ -1,0 +1,31 @@
+{
+    "name": "owowagency/laravel-has-users-with-roles",
+    "description": "A trait for Laravel models which have many users with roles.",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dees",
+            "email": "dees@owow.io"
+        },
+        {
+            "name": "Albert",
+            "email": "albert@owow.io"
+        },
+        {
+            "name": "Thomas",
+            "email": "thomas@owow.io"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^5.0|^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OwowAgency\\LaravelHasUsersWithRoles\\": "src/"
+        }
+    }
+}
