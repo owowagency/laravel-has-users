@@ -44,7 +44,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OwowAgency\\LaravelHasUsersWithRoles\\LaravelHasUsersWithRolesServiceProvider"
+                "OwowAgency\\LaravelHasUsersWithRoles\\ServiceProvider"
             ]
         }
     }
