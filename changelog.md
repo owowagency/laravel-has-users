@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `LaravelHasUsers` will be documented in this file.
+All notable changes to `LaravelHasUsersWithRoles` will be documented in this file.
 
 ## Version 1.0
 

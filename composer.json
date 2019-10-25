@@ -1,6 +1,6 @@
 {
-    "name": "owowagency/laravel-has-users",
-    "description": "A trait for Laravel models which have many users.",
+    "name": "owowagency/laravel-has-users-with-roles",
+    "description": "A trait for Laravel models which have many users with roles.",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -11,6 +11,10 @@
         {
             "name": "Albert",
             "email": "albert@owow.io"
+        },
+        {
+            "name": "Thomas",
+            "email": "thomas@owow.io"
         }
     ],
     "require": {
@@ -21,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "OwowAgency\\LaravelHasUsers\\": "src/"
+            "OwowAgency\\LaravelHasUsersWithRoles\\": "src/"
         }
     }
 }
