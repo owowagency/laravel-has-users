@@ -35,6 +35,13 @@ class CompanyUser extends Pivot
     ];
 
     /**
+     * The name of the guard that is being used.
+     *
+     * @var string
+     */
+    protected $guard_name = 'web';
+
+    /**
      * The user relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

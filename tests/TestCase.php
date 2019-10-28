@@ -2,6 +2,7 @@
 
 namespace OwowAgency\LaravelHasUsersWithRoles\Tests;
 
+use Spatie\Permission\PermissionServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use OwowAgency\LaravelHasUsersWithRoles\ServiceProvider;
 
@@ -39,6 +40,7 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             ServiceProvider::class,
+            PermissionServiceProvider::class,
         ];
     }
 

@@ -32,6 +32,29 @@ class CreatePackageTestTables extends Migration
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('guard_name');
+            $table->timestamps();
+        });
+
+        Schema::create('model_has_roles', function (Blueprint $table) {
+            $table->unsignedBigInteger('role_id');
+
+            $table->string('model_type');
+            $table->unsignedBigInteger('model_id');
+            $table->index(['model_id', 'model_type', ], 'model_has_roles_model_id_model_type_index');
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade');
+
+            $table->primary(['role_id', 'model_id', 'model_type'],
+                    'model_has_roles_role_model_type_primary');
+        });
     }
 
     /**
@@ -41,6 +64,8 @@ class CreatePackageTestTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('model_has_roles');
+        Schema::dropIfExists('roles');
         Schema::dropIfExists('company_user');
         Schema::dropIfExists('users');
         Schema::dropIfExists('companies');

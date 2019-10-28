@@ -32,7 +32,7 @@ trait HasUsersWithRoles
      */
     public function attachUser($user, $roles = []): void
     {
-        // If just the user id is given, find the user model
+        // If just the user id is given, find the user model.
         if (! is_a($user, $this->getUserClass())) {
             $user = $this->getUserClass()::findOrFail($user);
         }
@@ -44,9 +44,8 @@ trait HasUsersWithRoles
             $pivotKey => $this->id,
             'user_id' => $user->id,
         ]);
-
-        // If role is empty, user is just a basic member of the model
-        // and has no special role (e.g. admin)
+        
+        // If role is empty, user is just a basic member of the model.
         if (! empty($roles)) {
             $modelUser->assignRole($roles);
         }
