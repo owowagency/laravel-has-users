@@ -17,15 +17,35 @@
             "email": "thomas@owow.io"
         }
     ],
+    "keywords": [
+        "Laravel",
+        "Has users",
+        "Traits",
+        "Roles"
+    ],
     "require": {
-        "laravel/framework": "^5.0|^6.0"
+        "laravel/framework": "^5.0|^6.0",
+        "spatie/laravel-permission": "^3.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "~8.0"
+        "phpunit/phpunit": "~8.0",
+        "orchestra/testbench": "^3.5"
     },
     "autoload": {
         "psr-4": {
             "OwowAgency\\LaravelHasUsersWithRoles\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OwowAgency\\LaravelHasUsersWithRoles\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OwowAgency\\LaravelHasUsersWithRoles\\ServiceProvider"
+            ]
         }
     }
 }
