@@ -38,6 +38,7 @@ trait HasUsersWithRoles
         }
 
         $pivotKey = $this->users()->getForeignPivotKeyName();
+
         $pivot = $this->getUsersPivotClass();
         
         $modelUser = $pivot::create([
@@ -127,6 +128,7 @@ trait HasUsersWithRoles
         }
 
         $pivotKey = $this->users()->getForeignPivotKeyName();
+
         $pivot = $this->getUsersPivotClass();
 
         $modelUser = $pivot::with('roles')
